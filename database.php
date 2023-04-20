@@ -1,7 +1,6 @@
 <?php
 
 // Database Connectivity
-
 class ConnectDatabase {
   private $host;
   private $username;
@@ -38,7 +37,7 @@ class ConnectDatabase {
   }
 }
 
-// Example usage
+//usage
 $db = new ConnectDatabase("localhost", "root", "", "test");
 $db->connect();
 $db->externalHelper();
