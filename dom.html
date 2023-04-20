@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container p-5">
+    
+      <div id ="js" class="test" data-id="datatype">
+          <h2 id="changeClass"> This is Test</h2>
+
+      </div>
+      
+
+
+      <div class="row">
+        <button class="btn btn-primary" onclick="changeClassName()">a. Change Class Name</button>
+        <button class="btn btn-warning ml-2" onclick="addNewDom()">c. Inject New DOM Element</button>
+      </div>
+
+  <h3 class="mt-3">b. Get and set values from input box/checkbox/select dropdown</h3>
+      <h2 class="mt-3">
+        View DataSet By Clicking the list 
+      </h2>
+      <ul>
+        <a href="javascript:void(0);"><li onclick="showDataSet(this)" id="parrot" data-animal-type="bird">Parrot</li></a>
+        <a href="javascript:void(0);"><li onclick="showDataSet(this)" id="german" data-animal-type="dog">German Shephered</li>  </a>
+        <a href="javascript:void(0);"><li onclick="showDataSet(this)" id="snake" data-animal-type="snake">Black Mamba</li>  </a>
+        <a href="javascript:void(0);"><li onclick="showDataSet(this)" id="fish" data-animal-type="fish">Dolphin</li>  </a>
+      </ul>
+
+
+  <h3>e. Get and set values from input box/checkbox/select dropdown</h3>
+    <label class="checkbox" for="Checkbox1">
+      <input value="50" type="checkbox" class="sum"> Add 50
+    </label>
+    <label class="checkbox">
+        <input value="100" type="checkbox" class="sum"> Add 100
+      </label>
+    <label class="checkbox">
+        <input value="200" type="checkbox" class="sum"> Add 200
+      </label>
+
+
+    <br/>
+    <br/>
+    
+    <select id="select" name="select">
+        <option class="sum" selected disabled> Select Value To add</option>
+        <option value="1" class="sum">Add 1</option>
+        <option value="2" class="sum">Add 2</option>
+        <option value="5" class="sum">Add 5</option>
+      </select>
+
+    <br/>
+    <br/> Total Value From CheckBox and Dropdown is: Rs <span id="payment-total" style="color: red;font-size: 20px">0</span>
+    </div>
+    
+  
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js" ></script>
+    <script type="text/javascript" src="menu.js" ></script>
+    <script type="text/javascript">
+      // Change Class Name
+      function changeClassName() {
+        document.getElementById("js").classList.remove('test');
+        document.getElementById("js").classList.add('AddedClass');
+        document.getElementById("changeClass").innerHTML = "Change Class Done Successfully";
+        alert('Class Name Changed');
+      }
+
+      // Get datasets
+      function showDataSet(animal) {
+        var animalType = animal.getAttribute("data-animal-type");
+        alert("The " + animal.innerHTML + " is a " + animalType + ".");
+      }
+
+      // Inject new dom element
+      function addNewDom() {
+        var tag = document.createElement("h2");
+        var text = document.createTextNode("Added New Dom");
+        tag.appendChild(text);
+        var element = document.getElementById("js");
+        element.appendChild(tag);
+      }
+
+
+      //  Make both ajax and get request
+      function makeRequest(url, method, data, callback) {
+        var options = {
+          method: method,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+        
+        if (data) {
+          options.body = JSON.stringify(data);
+        }
+
+        fetch(url, options)
+          .then(function(response) {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          })
+          .then(function(data) {
+            callback(data);
+          })
+          .catch(function(error) {
+            console.error('Error: ' + error.message);
+          });
+      }
+
+
+      $.ajax({
+        type: "GET",
+        url: "/my/url1",
+        data: `{
+          "Id": 78912,
+          "Customer": "Test Sweet",
+        }`,
+        success: function (result) {
+          console.log(result);
+        },
+        dataType: "json"
+      });
+
+
+      //  Get and set values from input box/checkbox/select dropdown
+      var checkboxes = document.querySelectorAll('.sum')
+      var select = document.querySelector('#select')
+      var sum = document.querySelector('#payment-total')
+      var checkboxesTotal = 0
+      var selectTotal = 0
+
+      checkboxes.forEach(function(input) {
+        input.addEventListener('change', onCheckboxSelect)
+      })
+
+      select.addEventListener('change', onSelectChange)
+
+      function onCheckboxSelect(e) {
+        var sign = e.target.checked ? 1 : -1
+        checkboxesTotal += sign * parseInt(e.target.value, 10)
+        renderTotal()
+      }
+
+      function onSelectChange(e) {
+        var value = parseInt(e.target.value, 10)
+        if (!isNaN(value)) {
+          selectTotal = value
+          renderTotal()
+        }
+      }
+
+      function renderTotal() {
+        sum.innerHTML = checkboxesTotal + selectTotal
+      }
+
+      
+
+      // 
+    </script>
+  </body>
+</html>

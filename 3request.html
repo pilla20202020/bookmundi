@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container p-5">
+    
+      
+    </div>
+    
+  
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js" ></script>
+    <script type="text/javascript" src="menu.js" ></script>
+    <script type="text/javascript">
+      
+
+
+      // Make 3 POST requests at the same time which need to be resolved all at the same time. 
+      function makeMultipleRequests() {
+        var url1 = '/my/url1';
+        var data1 = { name: 'John', email: 'john@example.com' };
+        var options1 = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data1)
+        };
+        
+        var url2 = '/my/url2';
+        var data2 = { name: 'Jane', email: 'jane@example.com' };
+        var options2 = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data2)
+        };
+        
+        var url3 = '/my/url3';
+        var data3 = { name: 'Bob', email: 'bob@example.com' };
+        var options3 = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data3)
+        };
+
+        var request1 = fetch(url1, options1);
+        var request2 = fetch(url2, options2);
+        var request3 = fetch(url3, options3);
+        
+        Promise.all([request1, request2, request3])
+          .then(function(responses) {
+            console.log(responses[0], responses[1], responses[2]);
+            // handle the responses here
+          })
+          .catch(function(error) {
+            console.error('Error: ' + error.message);
+          });
+      }
+
+      
+
+      // 
+    </script>
+  </body>
+</html>
